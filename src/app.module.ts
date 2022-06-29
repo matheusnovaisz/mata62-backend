@@ -13,6 +13,7 @@ import { UsersModule } from './users/users.module';
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
+        url: configService.get('DATABASE_URL'),
         host: configService.get('DATABASE_HOST'),
         port: parseInt(configService.get('DATABASE_PORT')),
         username: configService.get('DATABASE_USER'),
