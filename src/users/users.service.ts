@@ -49,7 +49,7 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
-      const user = await this.findOne(id);
+      const user = await this.findOneById(id);
       return this.userRepository.save({ ...user, ...updateUserDto });
     } catch (error) {
       throw new BadRequestException();
@@ -58,7 +58,7 @@ export class UsersService {
 
   async remove(id: number) {
     try {
-      const user = await this.findOne(id);
+      const user = await this.findOneById(id);
       await this.userRepository.delete(id);
       return user;
     } catch (error) {
