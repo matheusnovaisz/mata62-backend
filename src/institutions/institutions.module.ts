@@ -16,5 +16,6 @@ import { Institution } from './entities/institution.entity';
   ],
   controllers: [InstitutionsController],
   providers: [InstitutionsService],
+  exports: [InstitutionsService],
 })
 export class InstitutionsModule {}

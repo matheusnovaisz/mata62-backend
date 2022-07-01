@@ -66,4 +66,16 @@ export class InstitutionsService {
       throw error;
     }
   }
+
+  async findCourses(id: number) {
+    try {
+      const institution = await this.partnerRepository.findOneOrFail({
+        where: { id },
+        relations: { courses: true },
+      });
+      return institution;
+    } catch (error) {
+      throw new NotFoundException("Institution not valid or doesn't exists");
+    }
+  }
 }

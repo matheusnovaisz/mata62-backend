@@ -1,4 +1,3 @@
-import { Transform } from 'class-transformer';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
@@ -34,4 +33,7 @@ export class Institution {
 
   @OneToMany(() => User, (user) => user.institution)
   users: User[];
+
+  @Column()
+  type: string;
 }
