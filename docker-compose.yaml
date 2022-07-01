@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  node:
+    image: node:18-alpine
+    command: sh -c "yarn start:dev"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on: 
+      - db
+    ports: 
+      - "3000:3000"
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: $DATABASE_NAME
+      POSTGRES_PASSWORD: $DATABASE_PASSWORD
+      POSTGRES_USER: $DATABASE_USER
+    volumes:
+      - mata62-data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+    - .env
+
+volumes:
+  mata62-data:
