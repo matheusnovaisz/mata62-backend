@@ -20,6 +20,7 @@ services:
       POSTGRES_USER: $DATABASE_USER
     volumes:
       - mata62-data:/var/lib/postgresql/data
+      - ./setup_db:/docker-entrypoint-initdb.d
     restart: always
     ports:
       - ${DATABASE_PORT:-5432}:${DATABASE_PORT:-5432}

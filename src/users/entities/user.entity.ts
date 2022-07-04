@@ -27,6 +27,10 @@ export class User {
   })
   role: Role;
 
+  // @Exclude()
+  @Column({ default: false })
+  is_admin: boolean;
+
   @Column()
   name: string;
 
