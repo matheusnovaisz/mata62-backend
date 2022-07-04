@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { InstitutionsModule } from './institutions/institutions.module';
 import { CoursesModule } from './courses/courses.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { CoursesModule } from './courses/courses.module';
     AuthModule,
     InstitutionsModule,
     CoursesModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],
