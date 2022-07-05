@@ -45,7 +45,6 @@ export class UsersService {
     try {
       const user = await this.userRepository.findOneOrFail({
         where: { username },
-        relations: ['institution'],
       });
       return user;
     } catch (error) {

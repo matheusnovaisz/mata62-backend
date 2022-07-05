@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PartnerInstitution } from 'src/institutions/entities/partner.entity';
-import { InstitutionsService } from 'src/institutions/institutions.service';
 import { Repository } from 'typeorm';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
