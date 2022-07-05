@@ -24,20 +24,15 @@ export class CaslAbilityFactory {
     const { can, cannot, build } = new AbilityBuilder<
       Ability<[Action, Subjects]>
     >(Ability as AbilityClass<AppAbility>);
-
     if (user.is_admin) {
       can(Action.Manage, 'all');
-    }
-    if (user.role === Role.SUPERINTENDENTE) {
-      can(Action.Manage, Institution, { id: user.institution?.id });
+    } else if (user.role === Role.SUPERINTENDENTE) {
+      can(Action.Manage, Institution, { id: user.institution_id });
     } else if (user.role === Role.FUNCIONARIO) {
-      can(Action.Manage, Course, { institution: user.institution });
+      can(Action.Manage, Course, { institution_id: user.institution_id });
     } else if (user.role === Role.DIRETOR) {
-      can(Action.Manage, User, {
-        institution: user.institution,
-        is_admin: false,
-      });
-      can(Action.Update, Institution, { id: user.institution?.id });
+      can(Action.Manage, User, { institution_id: user.institution_id });
+      can(Action.Update, Institution, { id: user.institution_id });
     }
     can(Action.Read, 'all');
 
