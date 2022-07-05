@@ -19,9 +19,14 @@ export class InstitutionsService {
   ) {}
   async create(createInstitutionDto: CreateInstitutionDto) {
     try {
-      const institution =
-        this.institutionRepository.create(createInstitutionDto);
-      await this.institutionRepository.save(institution);
+      if (createInstitutionDto.type === ValidatorInstitution.name) {
+        const institution =
+          this.validatorRepository.create(createInstitutionDto);
+        await this.validatorRepository.save(institution);
+        return institution;
+      }
+      const institution = this.partnerRepository.create(createInstitutionDto);
+      await this.partnerRepository.save(institution);
       return institution;
     } catch (error) {
       throw error;
@@ -75,7 +80,21 @@ export class InstitutionsService {
       });
       return institution;
     } catch (error) {
-      throw new NotFoundException("Institution not valid or doesn't exists");
+      throw new NotFoundException(
+        "Institution is not a PartnerInstitution or doesn't exists",
+      );
+    }
+  }
+
+  async findUsers(id: number) {
+    try {
+      const institution = await this.institutionRepository.findOneOrFail({
+        where: { id },
+        relations: ['users'],
+      });
+      return institution;
+    } catch (error) {
+      throw new NotFoundException('Institution not found');
     }
   }
 }

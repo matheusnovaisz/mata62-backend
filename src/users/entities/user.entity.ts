@@ -7,7 +7,6 @@ import {
   Column,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from '../enums/roles.enum';
@@ -27,7 +26,7 @@ export class User {
   })
   role: Role;
 
-  // @Exclude()
+  @Exclude()
   @Column({ default: false })
   is_admin: boolean;
 
@@ -52,6 +51,9 @@ export class User {
 
   @ManyToOne(() => Institution, (institution) => institution.users)
   institution: Institution;
+
+  @Column({ nullable: true })
+  institution_id: number;
 
   @BeforeInsert()
   @BeforeUpdate()

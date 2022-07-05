@@ -29,4 +29,7 @@ export class Course {
 
   @ManyToOne(() => PartnerInstitution, (institution) => institution.courses)
   institution: PartnerInstitution;
+
+  @Column({ nullable: true })
+  institution_id: number;
 }

@@ -47,4 +47,9 @@ export class InstitutionsController {
   findCourses(@Param('id') id: string) {
     return this.institutionsService.findCourses(+id);
   }
+
+  @Get(':id/users')
+  findUsers(@Param('id') id: string) {
+    return this.institutionsService.findUsers(+id);
+  }
 }

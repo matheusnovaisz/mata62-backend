@@ -12,12 +12,13 @@ export class CoursesService {
   constructor(
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
-    private institutionService: InstitutionsService,
+    @InjectRepository(PartnerInstitution)
+    private partnerRepository: Repository<PartnerInstitution>,
   ) {}
   async create(createCourseDto: CreateCourseDto) {
-    const institution = await this.institutionService.findOne(
-      createCourseDto.institutionId,
-    );
+    const institution = await this.partnerRepository.findOneByOrFail({
+      id: createCourseDto.institution_id,
+    });
     const course = await this.courseRepository.create({
       ...createCourseDto,
       institution,
