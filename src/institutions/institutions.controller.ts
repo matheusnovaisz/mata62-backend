@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { InstitutionsService } from './institutions.service';
 import { CreateInstitutionDto } from './dto/create-institution.dto';
 import { UpdateInstitutionDto } from './dto/update-institution.dto';
+import { AddPartnerDto } from './dto/add-partner.dto';
+import { RemovePartnerDto } from './dto/remove-partner.dto';
 
 @Controller('institutions')
 export class InstitutionsController {
@@ -21,8 +24,8 @@ export class InstitutionsController {
   }
 
   @Get()
-  findAll() {
-    return this.institutionsService.findAll();
+  findAll(@Query('type') type: string) {
+    return this.institutionsService.findAll({ type });
   }
 
   @Get(':id')
@@ -51,5 +54,22 @@ export class InstitutionsController {
   @Get(':id/users')
   findUsers(@Param('id') id: string) {
     return this.institutionsService.findUsers(+id);
+  }
+
+  @Get(':id/partners')
+  findPartners(@Param('id') id: string) {
+    return this.institutionsService.findPartners(+id);
+  }
+
+  @Post(':id/partners')
+  addPartner(@Param('id') id: string, @Body() addPartnerDto: AddPartnerDto) {
+    return this.institutionsService.addPartner(+id, addPartnerDto);
+  }
+  @Delete(':id/partners')
+  removePartner(
+    @Param('id') id: string,
+    @Body() removePartnerDto: RemovePartnerDto,
+  ) {
+    return this.institutionsService.removePartner(+id, removePartnerDto);
   }
 }
