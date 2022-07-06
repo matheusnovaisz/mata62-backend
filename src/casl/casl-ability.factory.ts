@@ -26,7 +26,10 @@ export class CaslAbilityFactory {
     >(Ability as AbilityClass<AppAbility>);
     if (user.is_admin) {
       can(Action.Manage, 'all');
-    } else if (user.role === Role.SUPERINTENDENTE) {
+    } else if (
+      user.role === Role.SUPERINTENDENTE ||
+      user.role === Role.DIRIGENTE
+    ) {
       can(Action.Manage, Institution, { id: user.institution_id });
     } else if (user.role === Role.FUNCIONARIO) {
       can(Action.Manage, Course, { institution_id: user.institution_id });
