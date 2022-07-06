@@ -17,6 +17,8 @@ export class DiplomaService {
   async create(createDiplomaDto: CreateDiplomaDto) {
     try {
       const diploma = await this.diplomaRepository.create(createDiplomaDto);
+      console.log('Diploma instance', diploma);
+      console.log(createDiplomaDto);
       await this.diplomaRepository.save(diploma);
       return diploma;
     } catch (error) {
