@@ -29,13 +29,13 @@ export class DiplomaController {
   @UseInterceptors(FileInterceptor('file'))
   @Post()
   create(
-    @UploadedFile() file: Express.Multer.File,
+    // @UploadedFile() file: Express.Multer.File,
     @Request() req,
     @Body() createDiplomaDto: CreateDiplomaDto,
   ) {
     createDiplomaDto.applicant_id = req.user.id;
-    createDiplomaDto.file = file.filename;
-    console.log(file);
+    createDiplomaDto.file = 'not working'; //stop application from upload files on server (breaking application)
+    // console.log(file);
     console.log(createDiplomaDto);
     return this.diplomaService.create(createDiplomaDto);
   }
@@ -50,11 +50,11 @@ export class DiplomaController {
     return this.diplomaService.findOne(+id);
   }
 
-  @Get('file/:filename')
-  getFile(@Param('filename') filename: string) {
-    const file = createReadStream(join(process.cwd(), `uploads/${filename}`));
-    return new StreamableFile(file);
-  }
+  // @Get('file/:filename')
+  // getFile(@Param('filename') filename: string) {
+  //   const file = createReadStream(join(process.cwd(), `uploads/${filename}`));
+  //   return new StreamableFile(file);
+  // }
 
   @Patch(':id')
   update(
