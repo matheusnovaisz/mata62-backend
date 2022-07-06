@@ -30,6 +30,9 @@ export class Diploma {
   @Column({ nullable: true })
   applicant_id: number;
 
+  @Column()
+  student_name: string;
+
   @Column({ type: 'enum', enum: Status, default: Status.ANALISE })
   status: Status;
 

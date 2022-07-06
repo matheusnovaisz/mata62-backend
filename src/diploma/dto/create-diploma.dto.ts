@@ -8,5 +8,8 @@ export class CreateDiplomaDto {
   applicant_id: number;
 
   @IsNotEmpty()
+  student_name: string;
+
+  @IsNotEmpty()
   file: string;
 }
