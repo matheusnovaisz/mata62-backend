@@ -27,7 +27,9 @@ export class DiplomaService {
   }
 
   findAll() {
-    return this.diplomaRepository.find();
+    return this.diplomaRepository.find({
+      relations: ['validator', 'applicant'],
+    });
   }
 
   async findOne(id: number) {
