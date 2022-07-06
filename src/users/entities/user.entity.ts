@@ -1,5 +1,6 @@
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
+import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { Institution } from 'src/institutions/entities/institution.entity';
 import {
   BeforeInsert,
@@ -7,6 +8,7 @@ import {
   Column,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from '../enums/roles.enum';
@@ -49,11 +51,20 @@ export class User {
   @Column()
   password: string;
 
-  @ManyToOne(() => Institution, (institution) => institution.users)
+  @ManyToOne(() => Institution, (institution) => institution.users, {
+    onDelete: 'SET NULL',
+  })
   institution: Institution;
 
   @Column({ nullable: true })
   institution_id: number;
+
+  @OneToMany(
+    () => Diploma,
+    (diploma) => diploma.applicant || diploma.validator,
+    { onDelete: 'SET NULL' },
+  )
+  validation: Diploma[];
 
   @BeforeInsert()
   @BeforeUpdate()

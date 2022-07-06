@@ -15,7 +15,7 @@ export class Diploma {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Course, (course) => course.diplomas)
+  @ManyToOne(() => Course, (course) => course.diplomas, { onDelete: 'CASCADE' })
   course: Course;
 
   @Column()
@@ -24,7 +24,7 @@ export class Diploma {
   @Column()
   file: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.validation, { onDelete: 'SET NULL' })
   applicant: User;
 
   @Column({ nullable: true })
@@ -36,7 +36,7 @@ export class Diploma {
   @Column({ type: 'enum', enum: Status, default: Status.ANALISE })
   status: Status;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.validation, { onDelete: 'SET NULL' })
   validator: User;
 
   @Column({ nullable: true })
