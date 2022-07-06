@@ -51,7 +51,6 @@ export class DiplomaController {
   @Get('file/:filename')
   getFile(@Param('filename') filename: string) {
     const file = createReadStream(join(process.cwd(), `uploads/${filename}`));
-    console.log(file);
     return new StreamableFile(file);
   }
 
