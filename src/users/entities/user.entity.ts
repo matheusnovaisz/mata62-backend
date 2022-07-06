@@ -1,5 +1,6 @@
 import { hash } from 'bcrypt';
 import { Exclude } from 'class-transformer';
+import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { Institution } from 'src/institutions/entities/institution.entity';
 import {
   BeforeInsert,
@@ -17,7 +18,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column({
@@ -26,6 +27,10 @@ export class User {
     default: Role.FUNCIONARIO,
   })
   role: Role;
+
+  @Exclude()
+  @Column({ default: false })
+  is_admin: boolean;
 
   @Column()
   name: string;
@@ -46,8 +51,20 @@ export class User {
   @Column()
   password: string;
 
-  @ManyToOne(() => Institution, (institution) => institution.users)
+  @ManyToOne(() => Institution, (institution) => institution.users, {
+    onDelete: 'SET NULL',
+  })
   institution: Institution;
+
+  @Column({ nullable: true })
+  institution_id: number;
+
+  @OneToMany(
+    () => Diploma,
+    (diploma) => diploma.applicant || diploma.validator,
+    { onDelete: 'SET NULL' },
+  )
+  validation: Diploma[];
 
   @BeforeInsert()
   @BeforeUpdate()

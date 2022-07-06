@@ -18,4 +18,7 @@ export class CreateInstitutionDto {
 
   @IsOptional()
   maintainer: string;
+
+  @IsOptional()
+  type: string;
 }

@@ -17,7 +17,7 @@ export class UsersService {
   ) {}
   async create(createUserDto: CreateUserDto) {
     try {
-      const user = this.userRepository.create(createUserDto);
+      const user = await this.userRepository.create(createUserDto);
       await this.userRepository.save(user);
       return user;
     } catch (error) {
@@ -31,7 +31,10 @@ export class UsersService {
 
   async findOneById(id: number) {
     try {
-      const user = await this.userRepository.findOneByOrFail({ id });
+      const user = await this.userRepository.findOneOrFail({
+        where: { id },
+        relations: ['institution'],
+      });
       return user;
     } catch (error) {
       throw new NotFoundException('User not found');
@@ -40,7 +43,9 @@ export class UsersService {
 
   async findOneByUsername(username: string) {
     try {
-      const user = await this.userRepository.findOneByOrFail({ username });
+      const user = await this.userRepository.findOneOrFail({
+        where: { username },
+      });
       return user;
     } catch (error) {
       throw new NotFoundException('User not found');

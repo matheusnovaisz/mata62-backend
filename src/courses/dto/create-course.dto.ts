@@ -11,5 +11,5 @@ export class CreateCourseDto {
   emec: string;
 
   @IsNotEmpty()
-  institutionId: number;
+  institution_id: number;
 }
