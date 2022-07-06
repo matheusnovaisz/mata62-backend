@@ -41,7 +41,7 @@ export class CoursesService {
 
   async update(id: number, updateCourseDto: UpdateCourseDto) {
     try {
-      const updated = await await this.courseRepository.save({
+      const updated = await this.courseRepository.save({
         id,
         ...updateCourseDto,
       });
@@ -57,6 +57,17 @@ export class CoursesService {
       await this.courseRepository.delete(id);
       return course;
     } catch {
+      throw new NotFoundException('Course not found');
+    }
+  }
+
+  async findDiplomas(id: number) {
+    try {
+      return await this.courseRepository.findOneOrFail({
+        where: { id },
+        relations: ['diplomas'],
+      });
+    } catch (error) {
       throw new NotFoundException('Course not found');
     }
   }

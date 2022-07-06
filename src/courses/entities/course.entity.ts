@@ -1,5 +1,12 @@
+import { Diploma } from 'src/diploma/entities/diploma.entity';
 import { PartnerInstitution } from 'src/institutions/entities/partner.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Course {
@@ -32,4 +39,7 @@ export class Course {
 
   @Column({ nullable: true })
   institution_id: number;
+
+  @OneToMany(() => Diploma, (diploma) => diploma.course)
+  diplomas: Diploma[];
 }
