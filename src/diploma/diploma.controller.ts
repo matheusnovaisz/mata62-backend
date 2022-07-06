@@ -35,6 +35,7 @@ export class DiplomaController {
   ) {
     createDiplomaDto.applicant_id = req.user.id;
     createDiplomaDto.file = file.filename;
+    console.log(file);
     return this.diplomaService.create(createDiplomaDto);
   }
 
