@@ -29,9 +29,9 @@ import { DiplomaModule } from './diploma/diploma.module';
         namingStrategy: new SnakeNamingStrategy(),
         autoLoadEntities: true,
         synchronize: true,
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        // ssl: {
+        //   rejectUnauthorized: false,
+        // },
       }),
     }),
     UsersModule,
